@@ -21,7 +21,7 @@ data-bs-toggle="collapse" href="#collapseMenu" role="button" aria-expanded="fals
 <div class="col-12">
 <p class="text-center fw-bold">{{wordpress.config.title}}</p>
 <div class="p-0">
-{% for key, item in wordpress.config.navlist %}
+{% for item in wordpress.config.navlist %}
 <p><small>
 <a href="{{item.url}}">{{item.nav}}</a>
 </small>

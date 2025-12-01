@@ -1,11 +1,24 @@
-const BASE_URL = 'xxxx';
-const API_ROOT = `${BASE_URL}/wp-json`;
-const POSTS_API_URL = `${API_ROOT}/wp/v2/posts?per_page=100&_embed&status=publish`;
-const POSTS_API_URL_BASE = `${API_ROOT}/wp/v2/posts?per_page=100&_embed&status=publish`;
-const SETTINGS_API_URL = `${API_ROOT}/wp/v2/settings`;
+const BASE_URL = 'https://admin.000000076.xyz';
+// CUSTOM WP API
+const API_ROOT = `${BASE_URL}/index.php?rest_route=`; 
+const POSTS_API_URL = `${API_ROOT}/wp/v2/posts&per_page=100&_embed&status=publish`; 
+const POSTS_API_URL_BASE = `${API_ROOT}/wp/v2/posts&per_page=100&_embed&status=publish`; 
+const TAGS_API_URL = `${API_ROOT}/wp/v2/tags&per_page=100`; 
+const PAGES_API_URL_BASE = `${API_ROOT}/wp/v2/pages&per_page=100&_embed&status=publish`; 
+const SETTINGS_API_URL = `${API_ROOT}/wp/v2/settings`; 
 const CUSTOM_CONFIG_API_URL = `${API_ROOT}/eleventy/v1/config`;
-const TAGS_API_URL = `${API_ROOT}/wp/v2/tags?per_page=100`;
-const PAGES_API_URL_BASE = `${API_ROOT}/wp/v2/pages?per_page=100&_embed&status=publish`;
+
+
+// DEFAULT WP LIKE THIS
+//const API_ROOT = `${BASE_URL}/wp-json`;
+// const POSTS_API_URL = `${API_ROOT}/wp/v2/posts?per_page=100&_embed&status=publish`;
+// const POSTS_API_URL_BASE = `${API_ROOT}/wp/v2/posts?per_page=100&_embed&status=publish`;
+// const SETTINGS_API_URL = `${API_ROOT}/wp/v2/settings`;
+// const CUSTOM_CONFIG_API_URL = `${API_ROOT}/eleventy/v1/config`;
+// const TAGS_API_URL = `${API_ROOT}/wp/v2/tags?per_page=100`;
+// const PAGES_API_URL_BASE = `${API_ROOT}/wp/v2/pages?per_page=100&_embed&status=publish`;
+
+
 // ==========================================================
 // FUNGSI ASYNC: MENGAMBIL POSTS (DENGAN PAGINATION & EKSTRAKSI LENGKAP)
 // ==========================================================

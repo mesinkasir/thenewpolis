@@ -83,29 +83,70 @@ eleventyConfig.addFilter("addHeadingIDs", function(content) {
     });
 const extractPosts = (collection) => collection.getAll()[0]?.data?.wordpress?.posts || [];
 const getSlug = (eleventyConfig) => eleventyConfig.getFilter("slugify");
+
+
 eleventyConfig.addCollection("categories", function(collection) {
     let categories = {};
-    const allPosts = collection.getAll()[0]?.data?.wordpress?.posts || []; 
-    allPosts.forEach(post => { 
-        if (post.category_names && Array.isArray(post.category_names)) {
-            post.category_names.forEach(categoryName => {
-                const normalizedCategoryName = String(categoryName).toLowerCase();               
-                if (!categories[normalizedCategoryName]) {
-                    categories[normalizedCategoryName] = [];
-                }
-                categories[normalizedCategoryName].push(post);
-            });
+    const allPosts = collection.getAll()[0]?.data?.wordpress?.posts || [];
+    const uniqueCategories = [];
+    const slugSet = new Set();
+    allPosts.forEach(post => { 
+        if (post.category_names && Array.isArray(post.category_names)) {
+            post.category_names.forEach(categoryName => {
+                const normalizedCategoryName = String(categoryName).toLowerCase();               
+                if (!categories[normalizedCategoryName]) {
+                    categories[normalizedCategoryName] = [];
+                }
+                categories[normalizedCategoryName].push(post);
+            });
+        }
+    });
+    Object.keys(categories).forEach(categoryName => {
+        const slug = eleventyConfig.getFilter("slugify")(categoryName);
+        
+        // Pengecekan Unik
+        if (slugSet.has(slug)) {
+            console.warn(`[Eleventy Category Conflict] Kategori "${categoryName}" menghasilkan slug duplikat: "${slug}". Kategori ini dilewati untuk mencegah build error.`);
+            return; // Skip kategori yang menghasilkan slug duplikat
         }
+
+        slugSet.add(slug); // Daftarkan slug yang unik
+
+        uniqueCategories.push({
+            name: categoryName,
+            slug: slug,
+            posts: categories[categoryName]
+        });
     });
 
-    return Object.keys(categories).map(categoryName => {
-        return {
-            name: categoryName,
-            slug: eleventyConfig.getFilter("slugify")(categoryName), 
-            posts: categories[categoryName]
-        };
-    });
+    return uniqueCategories;
 });
+
+
+// KODE FOR DEFAULT WP
+// eleventyConfig.addCollection("categories", function(collection) {
+//     let categories = {};
+//     const allPosts = collection.getAll()[0]?.data?.wordpress?.posts || []; 
+//     allPosts.forEach(post => { 
+//         if (post.category_names && Array.isArray(post.category_names)) {
+//             post.category_names.forEach(categoryName => {
+//                 const normalizedCategoryName = String(categoryName).toLowerCase();               
+//                 if (!categories[normalizedCategoryName]) {
+//                     categories[normalizedCategoryName] = [];
+//                 }
+//                 categories[normalizedCategoryName].push(post);
+//             });
+//         }
+//     });
+// 
+//     return Object.keys(categories).map(categoryName => {
+//         return {
+//             name: categoryName,
+//             slug: eleventyConfig.getFilter("slugify")(categoryName), 
+//             posts: categories[categoryName]
+//         };
+//     });
+// });
 
 eleventyConfig.addCollection("tags", function(collection) {
     let tags = {};
