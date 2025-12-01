@@ -13,7 +13,7 @@ eleventyConfig.addFilter("readableDate", (dateInput, format, zone) => {
             dateObj = DateTime.fromJSDate(dateInput, { zone: targetZone });
         }
         if (!dateObj.isValid) {
-            console.error("Luxon Parsing Gagal untuk input:", dateInput);
+            console.error("Luxon Parsing Failed to input:", dateInput);
             return "Invalid Date Format";
         }
         return dateObj.toFormat(defaultFormat);
@@ -58,9 +58,19 @@ eleventyConfig.addFilter("date", eleventyConfig.getFilter("readableDate"));
         return (tags || []).filter(tag => ["all", "posts" ].indexOf(tag) === -1);
     });
 
-    eleventyConfig.addFilter("sortAlphabetically", strings =>
-        (strings || []).sort((b, a) => b.localeCompare(a))
-    );
+   eleventyConfig.addFilter("sortAlphabetically", strings =>
+        (strings || []).sort((a, b) => {
+            const strA = String(a || '').toLowerCase();
+            const strB = String(b || '').toLowerCase();
+            if (strA < strB) {
+                return -1;
+            }
+            if (strA > strB) {
+                return 1;
+            }
+            return 0;
+        })
+    );
     eleventyConfig.addFilter("isFeatured", (post) => {
         if (!post || !Array.isArray(post.category_names)) {
             return false;
