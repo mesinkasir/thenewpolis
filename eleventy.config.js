@@ -10,6 +10,7 @@ import yaml from "js-yaml";
 import { execSync } from "child_process";
 import markdownIt from "markdown-it";
 import fontAwesomePlugin from "@11ty/font-awesome";
+import eleventyPluginPack11ty from 'eleventy-plugin-pack11ty';
 import pluginFilters from "./_config/filters.js";
 import configureWodam from "./_config/wodam.js";
 /** @param {import("@11ty/eleventy").UserConfig} eleventyConfig */
@@ -57,6 +58,7 @@ export default async function (eleventyConfig) {
 	eleventyConfig.addPlugin(pluginNavigation);
 	eleventyConfig.addPlugin(HtmlBasePlugin);
 	eleventyConfig.addPlugin(InputPathToUrlTransformPlugin);
+	
 // creativitas code
 	const md = new markdownIt({
 		html: true,
