@@ -37,6 +37,8 @@ collections:
             name: "hero"
             widget: "object"
             fields:
+              - { label: "Hero Info", name: "info", widget: "string" }
+              - { label: "Hero Info Image", name: "info_image", widget: "image" }
               - { label: "Hero Title", name: "title", widget: "string" }
               - { label: "Hero Description", name: "description", widget: "text" }
               - { label: "Hero Image 1", name: "image1", widget: "image" }
