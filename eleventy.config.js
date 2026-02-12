@@ -132,7 +132,7 @@ eleventyConfig.addDataExtension("yaml", (contents) => yaml.load(contents));
     });
     return Array.from(authors).sort();
   });
-
+eleventyConfig.addPassthroughCopy({ "public/admin": "admin" });
 eleventyConfig.addCollection("authorPages", function (collectionApi) {
   const authorsData = JSON.parse(readFileSync("./_data/authors.json", "utf-8"));
   let posts = collectionApi.getFilteredByGlob("content/posts/**/*.md");
