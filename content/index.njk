@@ -10,7 +10,7 @@ pagination:
     
     {% if pagination.pageNumber == 0 %}
     {% set latestPost = posts[0] %}
-    <section class="latest-featured row g-0 mb-5 shadow-sm border">
+    <section class="latest-featured row g-0 mb-5 shadow-sm border e-content">
         <div class="col-md-6 featured-img-half" 
              style="background-image: url('{{ latestPost.data.image or "https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=1000&q=80" }}'); min-height: 400px; background-size: cover; background-position: center;">
         </div>

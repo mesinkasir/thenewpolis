@@ -24,29 +24,29 @@ layout: base.njk
             {% endif %}
 
             <header class="post-header mb-5">
-                <h1 class="display-5 serif fw-bold mb-3" data-pagefind-meta="title" data-pagefind-weight="10">
+                <h1 class="display-5 serif fw-bold mb-3 p-name" data-pagefind-meta="title" data-pagefind-weight="10">
                     {{ title }}
                 </h1>
                 
                 <div class="post-meta d-flex align-items-center py-3 border-top border-bottom">
                     {% if author %}
-                        <div class="me-auto">
+                        <div class="me-auto p-author h-card">
                             <span class="text-muted small text-uppercase">By</span> 
-                            <a href="/author/{{ author | slugify }}/" class="fw-bold text-dark text-decoration-none small text-uppercase ms-1">
+                            <a href="/author/{{ author | slugify }}/" class="fw-bold text-dark text-decoration-none small text-uppercase ms-1 p-name u-url">
                                 {{ author }}
                             </a>
                         </div>
                     {% endif %}
                     
                     <div class="text-muted small text-uppercase ms-3">
-                        <time datetime="{{ page.date | date('yyyy-MM-dd') }}">
+                        <time datetime="{{ page.date | date('yyyy-MM-dd') }}" class="dt-published">
                             {{ page.date | readableDate }}
                         </time>
                     </div>
                 </div>
             </header>
 
-            <div class="post-content serif" style="font-size: 1.15rem; line-height: 1.8;">
+            <div class="post-content serif e-content" style="font-size: 1.15rem; line-height: 1.8;">
                 <heading-anchors>
                     {{ content | safe }}
                 </heading-anchors>
